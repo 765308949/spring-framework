@@ -79,17 +79,17 @@ import org.springframework.util.xml.XmlValidationModeDetector;
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
-	 * Indicates that the validation should be disabled.
+	 * 禁用验证模式
 	 */
 	public static final int VALIDATION_NONE = XmlValidationModeDetector.VALIDATION_NONE;
 
 	/**
-	 * Indicates that the validation mode should be detected automatically.
+	 * 自动获取验证模式
 	 */
 	public static final int VALIDATION_AUTO = XmlValidationModeDetector.VALIDATION_AUTO;
 
 	/**
-	 * Indicates that DTD validation should be used.
+	 * DTD 验证模式
 	 */
 	public static final int VALIDATION_DTD = XmlValidationModeDetector.VALIDATION_DTD;
 
@@ -453,6 +453,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		// Hmm, we didn't get a clear indication... Let's assume XSD,
 		// since apparently no DTD declaration has been found up until
 		// detection stopped (before finding the document's root tag).
+		//todo 这是直接返回了xsd的检验模式吗？？？
 		return VALIDATION_XSD;
 	}
 

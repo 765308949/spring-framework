@@ -1,0 +1,11 @@
+1.项目运行需要特定的jdk版本，通过sdkman安装了jdk-1.8.0_265进行安装，不然会报错jtr包找不到
+
+2.mac电脑使用command+shift+.进行文件夹的隐藏和显示
+
+3.遇到找不到符号，变量 CoroutinessUtils，这个问题通过添加jar包来去除。https://blog.csdn.net/gooaaee/article/details/104437902
+
+4.sdkman的使用方法：http://www.lining0806.com/sdkman%E7%9A%84%E4%BB%8B%E7%BB%8D%E3%80%81%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/
+
+5.Spring5源码 - 构建源码环境   https://blog.csdn.net/yangshangwei/article/details/108414553
+
+6.百度搜索真的不如谷歌搜索😔
