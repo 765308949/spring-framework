@@ -74,16 +74,30 @@ public class ResourceEntityResolver extends DelegatingEntityResolver {
 	@Nullable
 	public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId)
 			throws SAXException, IOException {
-
+		// 调用父类的方法，进行解析
 		InputSource source = super.resolveEntity(publicId, systemId);
-
+//		InputSource source = null;
+		//
+		// 解析失败，resourceLoader 进行解析
 		if (source == null && systemId != null) {
+			// 获得 resourcePath ，即 Resource 资源地址
 			String resourcePath = null;
 			try {
-				String decodedSystemId = URLDecoder.decode(systemId, "UTF-8");
-				String givenUrl = new URL(decodedSystemId).toString();
+				String decodedSystemId = URLDecoder.decode(systemId, "UTF-8");// 使用 UTF-8 ，解码 systemId
+				String givenUrl = new URL(decodedSystemId).toString();// 转换成 URL 字符串
+				// 解析文件资源的相对路径（相对于系统根路径）
+//				File类存在两个看起来很相似的方法toURI()和toURL()，这两个方法都是将文件转换成一个链接，可以网络访问。只是URI和URL的应用范围不同，URI来的更广。
+//
+//				那么为什么要使用toURI()而不是toURL()呢？?
+//
+//				因为此方法不会自动将链接中的非法字符转义。而在File转化成URI的时候，会将链接中的特殊字符如#或!等字符进行编码。
+//				1
+//				虽说在浏览器中没有转译不会有问题，因为有的浏览器已经自动转译了。但很多程序或者组件对于这样的路径都会抛出异常，认为是有错误的。
+//
+//				所以要将File转换成URL的话，请使用file.toURI().toURL()，而不是file.toURL()
 				String systemRootUrl = new File("").toURI().toURL().toString();
 				// Try relative to resource base if currently in system root.
+				//如果当前位于系统根目录中，请尝试相对于资源库。
 				if (givenUrl.startsWith(systemRootUrl)) {
 					resourcePath = givenUrl.substring(systemRootUrl.length());
 				}

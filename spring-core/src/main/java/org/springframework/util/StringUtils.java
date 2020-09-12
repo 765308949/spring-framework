@@ -666,9 +666,10 @@ public abstract class StringUtils {
 		if (!hasLength(path)) {
 			return path;
 		}
+		//将所有的"\"换成"/"
 		String pathToUse = replace(path, WINDOWS_FOLDER_SEPARATOR, FOLDER_SEPARATOR);
-
 		// Shortcut if there is no work to do
+		//没有。结尾的文件为无效文件返回
 		if (pathToUse.indexOf('.') == -1) {
 			return pathToUse;
 		}
@@ -688,6 +689,7 @@ public abstract class StringUtils {
 				pathToUse = pathToUse.substring(prefixIndex + 1);
 			}
 		}
+		//如果是从"/"开始的地址，就从/截取，保留后面的所有字符
 		if (pathToUse.startsWith(FOLDER_SEPARATOR)) {
 			prefix = prefix + FOLDER_SEPARATOR;
 			pathToUse = pathToUse.substring(1);
@@ -696,7 +698,7 @@ public abstract class StringUtils {
 		String[] pathArray = delimitedListToStringArray(pathToUse, FOLDER_SEPARATOR);
 		Deque<String> pathElements = new ArrayDeque<>();
 		int tops = 0;
-
+		//倒序遍历数组
 		for (int i = pathArray.length - 1; i >= 0; i--) {
 			String element = pathArray[i];
 			if (CURRENT_PATH.equals(element)) {

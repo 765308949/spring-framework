@@ -19,6 +19,7 @@ package org.springframework.beans.factory.xml;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.*;
 import org.xml.sax.InputSource;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
@@ -26,9 +27,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry;
 import org.springframework.beans.testfixture.beans.TestBean;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.util.ObjectUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -140,5 +138,6 @@ public class XmlBeanDefinitionReaderTests {
 		TestBean bean = (TestBean) factory.getBean("testBean");
 		assertThat(bean).isNotNull();
 	}
+
 
 }
