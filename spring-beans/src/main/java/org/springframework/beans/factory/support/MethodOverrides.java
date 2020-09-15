@@ -17,6 +17,7 @@
 package org.springframework.beans.factory.support;
 
 import java.lang.reflect.Method;
+import java.net.URLConnection;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -44,7 +45,7 @@ public class MethodOverrides {
 	 */
 	public MethodOverrides() {
 	}
-
+	BeanDefinitionParserDelegate
 	/**
 	 * Deep copy constructor.
 	 */
@@ -60,6 +61,7 @@ public class MethodOverrides {
 		if (other != null) {
 			this.overrides.addAll(other.overrides);
 		}
+
 	}
 
 	/**

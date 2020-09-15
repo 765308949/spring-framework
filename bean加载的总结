@@ -1,0 +1,19 @@
+解析 BeanDefinition 的入口在 DefaultBeanDefinitionDocumentReader 的#parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) 方法。
+该方法会根据命令空间来判断标签是默认标签还是自定义标签，其中：
+
+默认标签，由 #parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) 方法来实现
+自定义标签，由 BeanDefinitionParserDelegate 的 #parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) 方法来实现。
+在默认标签解析中，会根据标签名称的不同进行 import、alias、bean、beans 四大标签进行处理。
+其中 bean 标签的解析为核心，它由 processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) 方法实现。
+
+processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) 方法，开始进入解析核心工作，分为三步：
+
+解析默认标签的默认标签：
+BeanDefinitionParserDelegate#parseBeanDefinitionElement(Element ele, ...) 方法。
+该方法会依次解析 <bean> 标签的属性、各个子元素，解析完成后返回一个 GenericBeanDefinition 实例对象。
+
+解析默认标签下的自定义标签：
+BeanDefinitionParserDelegate#decorateBeanDefinitionIfRequired(Element ele, BeanDefinitionHolder definitionHolder) 方法。
+
+注册解析的 BeanDefinition：
+BeanDefinitionReaderUtils#registerBeanDefinition(BeanDefinitionHolder definitionHolder, BeanDefinitionRegistry registry) 方法。
