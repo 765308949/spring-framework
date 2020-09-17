@@ -95,6 +95,11 @@ public class SimpleAliasRegistry implements AliasRegistry {
 
 	/**
 	 * Determine whether the given name has the given alias registered.
+	 * /**
+	 * 禁止的两种情况：
+	 *  1、map容器(carA:car)，指定(carA,car)
+	 *  2、map容器(carA:car,carC:carA)，指定(carC,car)
+	 *
 	 * @param name the name to check
 	 * @param alias the alias to look for
 	 * @since 4.2.1
