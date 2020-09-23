@@ -489,8 +489,9 @@ class ConstructorResolver {
 			// 获取所有待定方法
 			List<Method> candidates = null;
 			// 检索所有方法，这里是对方法进行过滤
+			//todo 标记该bean的工厂方法不唯一
 			if (mbd.isFactoryMethodUnique) {
-				// 如果有static 且为工厂方法，则添加到 candidateSet 中
+				// 如果有static 且为工厂方法，则添加到 candidateSet
 				if (factoryMethodToUse == null) {
 					factoryMethodToUse = mbd.getResolvedFactoryMethod();
 				}
@@ -499,6 +500,7 @@ class ConstructorResolver {
 				}
 			}
 			// TODO 创建bean
+			// todo 看情况是通过分析所有的构造函数，判断条件是什么？
 			if (candidates == null) {
 				candidates = new ArrayList<>();
 				Method[] rawCandidates = getCandidateMethods(factoryClass, mbd);
@@ -523,7 +525,7 @@ class ConstructorResolver {
 					return bw;
 				}
 			}
-
+			//显式跳过不可变的singletonList
 			if (candidates.size() > 1) {  // explicitly skip immutable singletonList
 				candidates.sort(AutowireUtils.EXECUTABLE_COMPARATOR);
 			}
@@ -533,7 +535,7 @@ class ConstructorResolver {
 			boolean autowiring = (mbd.getResolvedAutowireMode() == AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR);
 			int minTypeDiffWeight = Integer.MAX_VALUE;
 			Set<Method> ambiguousFactoryMethods = null;
-
+			//最小构成的参数集合，如果没有传递的话直接用配置文件中的
 			int minNrOfArgs;
 			if (explicitArgs != null) {
 				minNrOfArgs = explicitArgs.length;
@@ -598,7 +600,7 @@ class ConstructorResolver {
 							continue;
 						}
 					}
-
+					//isLenientConstructorResolution是否为宽松模式
 					int typeDiffWeight = (mbd.isLenientConstructorResolution() ?
 							argsHolder.getTypeDifferenceWeight(paramTypes) : argsHolder.getAssignabilityWeight(paramTypes));
 					// Choose this factory method if it represents the closest match.
@@ -614,6 +616,9 @@ class ConstructorResolver {
 					// and eventually raise an ambiguity exception.
 					// However, only perform that check in non-lenient constructor resolution mode,
 					// and explicitly ignore overridden methods (with the same parameter signature).
+					// 如果具有相同参数数量的方法具有相同的类型差异权重，则收集此类型选项
+					// 但是仅在非宽松模式构造函数解析模式下执行该检查，并显示忽略重写方法（具有相同的参数签名）
+					//todo 宽松模式和严格模式
 					else if (factoryMethodToUse != null && typeDiffWeight == minTypeDiffWeight &&
 							!mbd.isLenientConstructorResolution() &&
 							paramTypes.length == factoryMethodToUse.getParameterCount() &&

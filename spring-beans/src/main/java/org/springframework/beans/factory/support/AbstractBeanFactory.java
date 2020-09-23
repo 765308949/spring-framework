@@ -359,6 +359,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					}
 				}
 				// <8> bean 实例化
+				//无论是从单例缓存中获取的 bean 实例 还是通过 #createBean(...) 方法来创建的 bean 实例，
+				// 最终都会调用 #getObjectForBeanInstance(...) 方法来根据传入的 bean 实例获取对象，
+				// 按照 Spring 的传统，该方法也只是做一些检测工作，真正的实现逻辑是委托给 #getObjectFromFactoryBean(...) 方法来实现。
 				// Create bean instance.
 				if (mbd.isSingleton()) {// 单例模式
 					sharedInstance = getSingleton(beanName, () -> {

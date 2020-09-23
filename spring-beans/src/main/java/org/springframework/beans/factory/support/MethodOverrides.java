@@ -45,7 +45,7 @@ public class MethodOverrides {
 	 */
 	public MethodOverrides() {
 	}
-	BeanDefinitionParserDelegate
+
 	/**
 	 * Deep copy constructor.
 	 */
