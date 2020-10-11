@@ -135,6 +135,7 @@ public class DefaultDocumentLoader implements DocumentLoader {
 
 		DocumentBuilder docBuilder = factory.newDocumentBuilder();
 		// <x> 设置 EntityResolver 属性
+		//entitiyresolver是项目本身就可以提供一个如何寻找DTD声明的方法，例如将dtd文件放在项目的某处
 		if (entityResolver != null) {
 			docBuilder.setEntityResolver(entityResolver);
 		}

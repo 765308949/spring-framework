@@ -412,9 +412,11 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {
+		//解析id属性
 		String id = ele.getAttribute(ID_ATTRIBUTE);
+		//解析name属性
 		String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
-
+		//分割name属性
 		List<String> aliases = new ArrayList<>();
 		if (StringUtils.hasLength(nameAttr)) {
 			String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, MULTI_VALUE_ATTRIBUTE_DELIMITERS);
@@ -434,7 +436,7 @@ public class BeanDefinitionParserDelegate {
 		if (containingBean == null) {
 			checkNameUniqueness(beanName, aliases, ele);
 		}
-		// <4> 解析属性，构造 AbstractBeanDefinition 对象
+		// <4> 解析其他属性，构造 AbstractBeanDefinition 对象
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			// <3.3> beanName ，再次，使用 beanName 生成规则
@@ -520,6 +522,7 @@ public class BeanDefinitionParserDelegate {
 
 		try {
 			// 创建用于承载属性的 AbstractBeanDefinition 实例
+			//这里使用的类是genericbeandefinition，做为一站式bean定义服务类
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
 			// 解析默认 bean 的各种属性
@@ -584,6 +587,7 @@ public class BeanDefinitionParserDelegate {
 		}
 		//todo containbean是什么？
 		else if (containingBean != null) {
+			//在嵌入beandefinition情况下且没有单独指定scope属性则直接使用父类默认的属性
 			// Take default from containing bean in case of an inner bean definition.
 			bd.setScope(containingBean.getScope());
 		}
@@ -675,6 +679,8 @@ public class BeanDefinitionParserDelegate {
 	 *   <property name="age" value="20"/>
 	 *   <meta key="test" value="myCase"/>
 	 * </bean>
+	 *
+	 * //todo meta的使用场景是什么？
 	 */
 	public void parseMetaElements(Element ele, BeanMetadataAttributeAccessor attributeAccessor) {
 		NodeList nl = ele.getChildNodes();
@@ -687,6 +693,7 @@ public class BeanDefinitionParserDelegate {
 				String key = metaElement.getAttribute(KEY_ATTRIBUTE);
 				String value = metaElement.getAttribute(VALUE_ATTRIBUTE);
 				// 创建 BeanMetadataAttribute 对象
+				//使用key，value构造beanmetadataattribute
 				BeanMetadataAttribute attribute = new BeanMetadataAttribute(key, value);
 				attribute.setSource(extractSource(metaElement));
 				// 添加到 BeanMetadataAttributeAccessor 中

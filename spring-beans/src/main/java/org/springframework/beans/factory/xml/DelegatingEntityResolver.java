@@ -35,6 +35,7 @@ import org.springframework.util.Assert;
  * @since 2.0
  * @see BeansDtdResolver
  * @see PluggableSchemaResolver
+ * 这个类做为entityresolver的实现类
  */
 public class DelegatingEntityResolver implements EntityResolver {
 
@@ -83,6 +84,7 @@ public class DelegatingEntityResolver implements EntityResolver {
 			throws SAXException, IOException {
 
 		if (systemId != null) {
+			//如果是dtd就从这里进行解析
 			if (systemId.endsWith(DTD_SUFFIX)) {
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}

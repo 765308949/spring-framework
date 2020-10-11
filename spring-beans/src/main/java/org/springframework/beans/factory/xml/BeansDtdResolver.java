@@ -41,6 +41,7 @@ import org.springframework.lang.Nullable;
  * @author Colin Sampaleanu
  * @since 04.06.2003
  * @see ResourceEntityResolver
+ * 这里dtd的解析直接通过systemid的xx.dtd在当前路径进行寻找
  */
 public class BeansDtdResolver implements EntityResolver {
 

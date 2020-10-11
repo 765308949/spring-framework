@@ -87,6 +87,7 @@ public class XmlValidationModeDetector {
 	 * @throws IOException in case of I/O failure
 	 * @see #VALIDATION_DTD
 	 * @see #VALIDATION_XSD
+	 * Spring的判断也是很简单就是通过是否含有doctype来决定，有就是dtd，没有就是xsd
 	 */
 	public int detectValidationMode(InputStream inputStream) throws IOException {
 		// Peek into the file to look for DOCTYPE.

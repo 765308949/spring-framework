@@ -54,6 +54,7 @@ import org.springframework.util.CollectionUtils;
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
+ * 这里是xsd的解析默认从META-INF/Spring.schemas文件中进行解析
  */
 public class PluggableSchemaResolver implements EntityResolver {
 

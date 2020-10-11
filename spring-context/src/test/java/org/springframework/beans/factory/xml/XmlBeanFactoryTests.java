@@ -79,6 +79,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * @author Rick Evans
  * @author Chris Beams
  * @author Sam Brannen
+ * 测试类的开始
  */
 class XmlBeanFactoryTests {
 
