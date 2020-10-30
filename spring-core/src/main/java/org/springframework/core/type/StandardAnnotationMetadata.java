@@ -55,6 +55,11 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 
 
 	/**
+	 * introspect 代表的是内省  代表的是运行的时候进行检查，和反射不同，反射可以修改对象，但是内省是不可以的
+	 *
+	 * 一般的做法是通过类 Introspector 的 getBeanInfo方法 来获取某个对象的 BeanInfo 信息,然后通过 BeanInfo 来获取属性的描述器(PropertyDescriptor),
+	 * 通过这个属性描述器就可以获取某个属性对应的 getter/setter 方法,然后我们就可以通过反射机制来调用这些方法，这就是内省机制。
+	 *
 	 * Create a new {@code StandardAnnotationMetadata} wrapper for the given Class.
 	 * @param introspectedClass the Class to introspect
 	 * @see #StandardAnnotationMetadata(Class, boolean)

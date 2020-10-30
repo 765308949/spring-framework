@@ -259,8 +259,9 @@ public class AnnotatedBeanDefinitionReader {
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
 		abd.setScope(scopeMetadata.getScopeName());
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
-
+		//这里是检查annotatation有哪些，并将annotation标记起来
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
+		//这里@qulifer来标准哪些类将要特殊加载
 		if (qualifiers != null) {
 			for (Class<? extends Annotation> qualifier : qualifiers) {
 				if (Primary.class == qualifier) {
@@ -270,6 +271,7 @@ public class AnnotatedBeanDefinitionReader {
 					abd.setLazyInit(true);
 				}
 				else {
+					//todo  这里不理解 没有案例
 					abd.addQualifier(new AutowireCandidateQualifier(qualifier));
 				}
 			}
@@ -281,6 +283,7 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
+		//@Scope中使用了proxyMode属性，被设置成了ScopedProxyMode.INTERFACES。这个属性是用于解决将会话或请求作用域的bean注入到单例bean中所遇到的问题。
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}

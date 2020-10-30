@@ -1113,6 +1113,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	public void validate() throws BeanDefinitionValidationException {
+		//如果没有加lookup-override或者replace-override属性，直接通过构造方法和参数进行实例
+		//todo 这里getFactoryMethodName（）指的是什么？
 		if (hasMethodOverrides() && getFactoryMethodName() != null) {
 			throw new BeanDefinitionValidationException(
 					"Cannot combine factory method with container-generated method overrides: " +
